@@ -1,9 +1,4 @@
-export const getScoreColor = (score, total) => {
-  const percentage = (score / total) * 100;
-  if (percentage >= 80) return 'text-green-600';
-  if (percentage >= 60) return 'text-yellow-600';
-  return 'text-red-600';
-};
+// Score color utility - moved to uiHelpers.js to avoid duplication
 
 export const getDifficultyColor = (difficulty) => {
   switch (difficulty) {

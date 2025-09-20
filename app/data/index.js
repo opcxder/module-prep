@@ -1,47 +1,101 @@
-// Question data and utility functions
-import { theoryQuestions } from './theoryQuestions';
-import { codingQuestions } from './codingQuestions';
+/**
+ * Question Data Management and Utility Functions
+ * 
+ * This module serves as the central hub for question data management.
+ * It provides functions to:
+ * - Load questions by type and subject
+ * - Get random question subsets
+ * - Filter questions by difficulty and topic
+ * - Calculate question statistics
+ * 
+ * The module maintains a mapping of subject IDs to their respective
+ * question data files for efficient loading and organization.
+ */
+
+// Import subject-specific questions
+import { cProgrammingQuestions } from './subjects/c-programming';
+import { linuxQuestions } from './subjects/linux';
+import { javaQuestions } from './subjects/java';
+import { pythonQuestions } from './subjects/python';
+import { operatingSystemsQuestions } from './subjects/operating-systems';
+import { dataStructuresQuestions } from './subjects/data-structures';
+import { databaseQuestions } from './subjects/database';
+import { computerNetworksQuestions } from './subjects/computer-networks';
+import { networkSecurityQuestions } from './subjects/network-security';
+import { cloudComputingQuestions } from './subjects/cloud-computing';
+import { systemAdministrationQuestions } from './subjects/system-administration';
+import { embeddedCQuestions } from './subjects/embedded-c';
 
 // Question types enum
-export const QuestionTypes = {
+const QuestionTypes = {
   THEORY: 'theory',
   CODING: 'coding'
 };
 
-// Get questions by type
-export const getQuestionsByType = (type) => {
+// Subject questions mapping
+const subjectQuestionsMap = {
+  'c-programming': cProgrammingQuestions,
+  'linux': linuxQuestions,
+  'java': javaQuestions,
+  'core-java': javaQuestions, // Alias for core-java
+  'python': pythonQuestions,
+  'operating-systems': operatingSystemsQuestions,
+  'data-structures': dataStructuresQuestions,
+  'database': databaseQuestions,
+  'computer-networks': computerNetworksQuestions,
+  'network-security': networkSecurityQuestions,
+  'cloud-computing': cloudComputingQuestions,
+  'system-administration': systemAdministrationQuestions,
+  'embedded-c': embeddedCQuestions
+};
+
+// Get questions by type and subject
+const getQuestionsByType = (type, subjectId = 'c-programming', selectedQuestions = []) => {
+  // If we already have selected questions, return them
+  if (selectedQuestions.length > 0) {
+    return selectedQuestions;
+  }
+
+  // Get subject-specific questions or fallback to C programming
+  const subjectQuestions = subjectQuestionsMap[subjectId] || cProgrammingQuestions;
+  
+  // Return all available questions (no limit)
   switch (type) {
     case QuestionTypes.THEORY:
-      return theoryQuestions;
+      return subjectQuestions.theory || [];
     case QuestionTypes.CODING:
-      return codingQuestions;
+      return subjectQuestions.coding || [];
     default:
       return [];
   }
 };
 
-// Get questions by difficulty level
-export const getQuestionsByDifficulty = (questions, difficulty) => {
-  return questions.filter(q => q.difficulty.toLowerCase() === difficulty.toLowerCase());
+// Check if a subject has questions available
+const hasQuestionsAvailable = (subjectId) => {
+  const subjectQuestions = subjectQuestionsMap[subjectId];
+  if (!subjectQuestions) return false;
+  
+  const theoryQuestions = subjectQuestions.theory || [];
+  const codingQuestions = subjectQuestions.coding || [];
+  
+  return theoryQuestions.length > 0 || codingQuestions.length > 0;
 };
 
-// Get questions by topic
-export const getQuestionsByTopic = (questions, topic) => {
-  return questions.filter(q => q.topic.toLowerCase() === topic.toLowerCase());
+// Get total questions count for a subject (theory + coding)
+const getTotalQuestionsForSubject = (subjectId) => {
+  const subjectQuestions = subjectQuestionsMap[subjectId];
+  if (!subjectQuestions) return 0;
+  
+  const theoryQuestions = subjectQuestions.theory || [];
+  const codingQuestions = subjectQuestions.coding || [];
+  
+  return theoryQuestions.length + codingQuestions.length;
 };
 
-// Get question statistics
-export const getQuestionStats = (questions) => {
-  const topics = {};
-  const difficulties = {};
-
-  questions.forEach(q => {
-    topics[q.topic] = (topics[q.topic] || 0) + 1;
-    difficulties[q.difficulty] = (difficulties[q.difficulty] || 0) + 1;
-  });
-
-  return { topics, difficulties };
+// Export all functions and data
+export {
+  QuestionTypes,
+  getQuestionsByType,
+  hasQuestionsAvailable,
+  getTotalQuestionsForSubject
 };
-
-// Export question data
-export { theoryQuestions, codingQuestions };

@@ -6,11 +6,12 @@ export const getScoreColor = (score, total) => {
 };
 
 export const formatTime = (seconds) => {
+  // Handle invalid inputs
+  if (seconds === null || seconds === undefined || isNaN(seconds) || seconds < 0) {
+    return '0:00';
+  }
+  
   const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
+  const remainingSeconds = Math.floor(seconds % 60);
   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-};
-
-export const getProgressBarWidth = (currentIndex, total) => {
-  return `${((currentIndex + 1) / total) * 100}%`;
 };
