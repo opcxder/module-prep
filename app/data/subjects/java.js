@@ -76,9 +76,8 @@ i=4: A[4] = A[(3+3)%5] = A[1] = 1.
 Final A[1] = 1.`,
       difficulty: "Advanced",
       topic: "Arrays & Modular Arithmetic"
-    }
-  ],
-  conceptual: [
+    },
+
     {
       id: 5,
       question: "When an array is passed to a method, what does the method receive?",
@@ -123,9 +122,8 @@ Since 't' is not present, indexOf() returns -1.`,
       explanation: "The String class belongs to the java.lang package, which is automatically imported in every Java program.",
       difficulty: "Basic",
       topic: "Packages"
-    }
-  ],
-  syntaxErrors: [
+    },
+
     {
       id: 9,
       question: `Find the output of the following code:
@@ -146,9 +144,8 @@ You cannot use pre-increment (++) in a declaration. Compilation error occurs.`,
       explanation: "Constructors do not have a return type. If you specify a return type, it becomes a regular method.",
       difficulty: "Basic",
       topic: "Constructors"
-    }
-  ],
-  controlFlow: [
+    },
+
     {
       id: 11,
       question: `Find the output of the following code:
@@ -167,9 +164,8 @@ Public class Solution{
 Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'Int'.`,
       difficulty: "Intermediate",
       topic: "Loops & Control Statements"
-    }
-  ],
-  exceptions: [
+    },
+
     {
       id: 12,
       question: "Which of the following exception is thrown when divided by zero statement is executed?",
@@ -178,9 +174,8 @@ Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'I
       explanation: "ArithmeticException is thrown when dividing by zero in integer division.",
       difficulty: "Basic",
       topic: "Exception Handling"
-    }
-  ],
-  dataTypes: [
+    },
+
     {
       id: 13,
       question: "What is the numerical range of char?",
@@ -189,9 +184,7 @@ Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'I
       explanation: "char in Java is 16-bit unsigned integer ranging 0–65535.",
       difficulty: "Basic",
       topic: "Data Types"
-    }
-  ],
-  keywords: [
+    },
     {
       id: 14,
       question: "Which of the following are Java reserved words?",
@@ -205,9 +198,8 @@ Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'I
       explanation: "'import' and 'default' are reserved. 'run' is a method, 'implement' is not a keyword.",
       difficulty: "Basic",
       topic: "Keywords & Reserved Words"
-    }
-  ],
-  threading: [
+    },
+
     {
       id: 15,
       question: "Which two of the following methods are defined in class Thread?",
@@ -240,9 +232,8 @@ Which of these will create and start this thread?`,
       explanation: "To start a thread with Runnable: create instance, pass to Thread, call start(). Only option 3 is correct.",
       difficulty: "Intermediate",
       topic: "Threading & Runnable"
-    }
-  ],
-  stringManipulation: [
+    },
+
     {
       id: 18,
       question: `What will be the output of the program?
@@ -272,9 +263,8 @@ x = x + y;`,
       explanation: "Objects created: 1) 'xyz' in pool, 2) new String('xyz'), 3) 'abc' in pool, 4) concatenation 'xyzabc'. Total 4.",
       difficulty: "Advanced",
       topic: "String Objects & Memory"
-    }
-  ],
-  advancedConcepts: [
+    },
+
     {
       id: 20,
       question: `What will be the output of the program?
