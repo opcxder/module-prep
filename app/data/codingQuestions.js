@@ -855,4 +855,130 @@ printf("%d", **q);`,
     difficulty: "Advanced",
     topic: "Double Pointer"
   },
+  {
+    id: 70,
+    question: "What is the output of this fundamental operator precedence question?",
+    code: `int a = 5, b = 2, c = 3;
+  printf("%d", a + b * c - b);`,
+    options: [
+      "14",
+      "12",
+      "9",
+      "16"
+    ],
+    correct: 0,
+    explanation: "Operator precedence: b * c = 6, then a + 6 - b = 5 + 6 - 2 = 9.",
+    difficulty: "Basic",
+    topic: "Precedence of Operators"
+  },
+  {
+    id: 71,
+    question: "What will this fundamental loop with break statement output?",
+    code: `int i;
+  for(i = 1; i <= 10; i++) {
+      if(i == 5) break;
+      printf("%d ", i);
+  }`,
+    options: [
+      "1 2 3 4 5",
+      "1 2 3 4",
+      "1 2 3 4 5 6 7 8 9 10",
+      "5 6 7 8 9 10"
+    ],
+    correct: 1,
+    explanation: "Loop breaks when i == 5, so only prints 1 2 3 4.",
+    difficulty: "Intermediate",
+    topic: "Loops"
+  },
+  {
+    id: 72,
+    question: "What is the output of this fundamental array initialization question?",
+    code: `int arr[5] = {10, 20};
+  printf("%d %d", arr[0], arr[2]);`,
+    options: [
+      "10 20",
+      "10 0",
+      "0 0",
+      "10 garbage"
+    ],
+    correct: 1,
+    explanation: "Partial array initialization: arr[0]=10, arr[1]=20, remaining elements are 0.",
+    difficulty: "Basic",
+    topic: "Arrays"
+  },
+  {
+    id: 73,
+    question: "What will this fundamental pointer arithmetic output?",
+    code: `int arr[] = {2, 4, 6, 8, 10};
+  int *p = arr;
+  p++;
+  printf("%d", *p + 1);`,
+    options: [
+      "3",
+      "5",
+      "4",
+      "6"
+    ],
+    correct: 1,
+    explanation: "p points to arr[1] = 4 after p++. *p + 1 = 4 + 1 = 5.",
+    difficulty: "Intermediate",
+    topic: "Array with Pointer"
+  },
+  {
+    id: 74,
+    question: "What is the output of this fundamental function call question?",
+    code: `void swap(int a, int b) {
+      int temp = a;
+      a = b;
+      b = temp;
+  }
+  int x = 5, y = 10;
+  swap(x, y);
+  printf("%d %d", x, y);`,
+    options: [
+      "10 5",
+      "5 10",
+      "10 10",
+      "5 5"
+    ],
+    correct: 1,
+    explanation: "Call by value: original variables x and y remain unchanged.",
+    difficulty: "Intermediate",
+    topic: "Functions"
+  },
+  {
+    id: 75,
+    question: "What will this fundamental conditional chain output?",
+    code: `int score = 85;
+  if(score >= 90) printf("A");
+  else if(score >= 80) printf("B");
+  else if(score >= 70) printf("C");
+  else printf("F");`,
+    options: [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    correct: 1,
+    explanation: "score=85 satisfies score >= 80 but not score >= 90, so prints 'B'.",
+    difficulty: "Basic",
+    topic: "Conditional Statement"
+  },
+  {
+    id: 76,
+    question: "What is the output of this fundamental string question?",
+    code: `char str[] = "HELLO";
+  printf("%c", str[1] + 32);`,
+    options: [
+      "e",
+      "E",
+      "h",
+      "H"
+    ],
+    correct: 0,
+    explanation: "str[1] = 'E'. ASCII value of 'E' is 69, 'e' is 101. 69 + 32 = 101 = 'e'.",
+    difficulty: "Intermediate",
+    topic: "Strings"
+  },
 ];

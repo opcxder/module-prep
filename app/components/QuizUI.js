@@ -255,7 +255,8 @@ export const QuizInterface = ({
             {showExplanation && (
               <QuizExplanation
                 isCorrect={Array.isArray(currentQuestion.correct) 
-                  ? currentQuestion.correct.includes(selectedOption)
+                  ? currentQuestion.correct.length === selectedOptions.length && 
+                    selectedOptions.every(index => currentQuestion.correct.includes(index))
                   : selectedOption === currentQuestion.correct
                 }
                 correctAnswer={Array.isArray(currentQuestion.correct) 
