@@ -236,7 +236,10 @@ export const QuizInterface = ({
                   key={index}
                   option={option}
                   index={index}
-                  selected={selectedOption === index}
+                  selected={Array.isArray(currentQuestion.correct) 
+                    ? selectedOptions.includes(index)
+                    : selectedOption === index
+                  }
                   showExplanation={showExplanation}
                   isCorrect={Array.isArray(currentQuestion.correct) 
                     ? currentQuestion.correct.includes(index)
@@ -244,6 +247,7 @@ export const QuizInterface = ({
                   }
                   onClick={() => onOptionSelect(index)}
                   quizType={quizType}
+                  isMultiSelect={Array.isArray(currentQuestion.correct)}
                 />
               ))}
             </div>
