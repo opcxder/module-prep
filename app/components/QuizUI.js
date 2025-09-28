@@ -121,6 +121,7 @@ export const QuizInterface = ({
   currentIndex,
   totalQuestions,
   selectedOption,
+  selectedOptions,
   showExplanation,
   score,
   timeElapsed,
@@ -203,6 +204,13 @@ export const QuizInterface = ({
               {currentQuestion.question}
             </h2>
             
+            {/* Multi-select instruction */}
+            {Array.isArray(currentQuestion.correct) && (
+              <p className="text-sm text-gray-600 mb-3 font-medium">
+                📋 Select {currentQuestion.correct.length} options
+              </p>
+            )}
+            
             {currentQuestion.code && (
               <div className="bg-gray-900 rounded-lg p-4 mt-3 shadow-inner">
                 <div className="flex items-center gap-2 mb-2">
@@ -260,6 +268,8 @@ export const QuizInterface = ({
                 totalQuestions={totalQuestions}
                 showExplanation={showExplanation}
                 selectedOption={selectedOption}
+                selectedOptions={selectedOptions}
+                currentQuestion={currentQuestion}
                 onPrevious={onPreviousQuestion}
                 onSubmit={() => onSubmitAnswer(currentQuestion)}
                 onNext={() => onNextQuestion(totalQuestions)}

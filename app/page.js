@@ -11,6 +11,7 @@ const CExamPrepApp = () => {
   const {
     currentQuestionIndex,
     selectedOption,
+    selectedOptions,
     showExplanation,
     score,
     userAnswers,
@@ -102,6 +103,7 @@ const CExamPrepApp = () => {
       currentIndex={currentQuestionIndex}
       totalQuestions={currentQuestions.length}
       selectedOption={selectedOption}
+      selectedOptions={selectedOptions}
       showExplanation={showExplanation}
       score={score}
       timeElapsed={timeElapsed}

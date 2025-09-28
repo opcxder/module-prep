@@ -560,5 +560,33 @@ export const theoryQuestions = [
     explanation: "exit() terminates program execution and returns control to the operating system.",
     difficulty: "Basic",
     topic: "Control Flow"
+  },
+  {
+    id: 41,
+    question: "Which of the following are valid ways to declare and initialize a pointer in C? (Select all that apply)",
+    options: [
+      "int *ptr;",
+      "int *ptr = NULL;",
+      "int *ptr = 0;",
+      "int ptr*;"
+    ],
+    correct: [0, 1, 2],
+    explanation: "All options except 'int ptr*;' are valid ways to declare and initialize pointers. int *ptr; declares an uninitialized pointer, int *ptr = NULL; and int *ptr = 0; both initialize the pointer to null. 'int ptr*;' is invalid syntax.",
+    difficulty: "Basic",
+    topic: "Pointers"
+  },
+  {
+    id: 42,
+    question: "Which of the following are valid storage class specifiers in C? (Select all that apply)",
+    options: [
+      "auto",
+      "register", 
+      "static",
+      "dynamic"
+    ],
+    correct: [0, 1, 2],
+    explanation: "auto, register, and static are valid storage class specifiers in C. 'dynamic' is not a valid storage class specifier in C.",
+    difficulty: "Intermediate",
+    topic: "Storage Classes"
   }
 ];

@@ -93,7 +93,7 @@ export const ProgressBar = ({ currentIndex, total, quizType, showExplanation }) 
   );
 }
 
-export const QuizOption = ({ option, index, selected, showExplanation, isCorrect, onClick, quizType }) => {
+export const QuizOption = ({ option, index, selected, showExplanation, isCorrect, onClick, quizType, isMultiSelect }) => {
   let buttonClass = "w-full p-3 text-left rounded-lg border-2 transition-all duration-200 cursor-pointer group ";
   
   if (showExplanation) {
@@ -122,19 +122,33 @@ export const QuizOption = ({ option, index, selected, showExplanation, isCorrect
       style={{ pointerEvents: showExplanation ? 'none' : 'auto' }}
     >
       <div className="flex items-center gap-3">
-        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center text-xs font-bold transition-all duration-200 ${
-          showExplanation && isCorrect
-            ? 'border-green-500 bg-green-500 text-white'
-            : showExplanation && selected && !isCorrect
-            ? 'border-red-500 bg-red-500 text-white'
-            : selected && !showExplanation
-            ? quizType === 'theory' 
-              ? 'border-blue-500 bg-blue-500 text-white'
-              : 'border-purple-500 bg-purple-500 text-white'
-            : 'border-gray-300 group-hover:border-gray-400'
-        }`}>
-          {String.fromCharCode(65 + index)}
-        </div>
+        {isMultiSelect ? (
+          <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all duration-200 ${
+            selected
+              ? quizType === 'theory' 
+                ? 'border-blue-500 bg-blue-500'
+                : 'border-purple-500 bg-purple-500'
+              : 'border-gray-300 group-hover:border-gray-400'
+          }`}>
+            {selected && (
+              <CheckCircle className="w-4 h-4 text-white" />
+            )}
+          </div>
+        ) : (
+          <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center text-xs font-bold transition-all duration-200 ${
+            showExplanation && isCorrect
+              ? 'border-green-500 bg-green-500 text-white'
+              : showExplanation && selected && !isCorrect
+              ? 'border-red-500 bg-red-500 text-white'
+              : selected && !showExplanation
+              ? quizType === 'theory' 
+                ? 'border-blue-500 bg-blue-500 text-white'
+                : 'border-purple-500 bg-purple-500 text-white'
+              : 'border-gray-300 group-hover:border-gray-400'
+          }`}>
+            {String.fromCharCode(65 + index)}
+          </div>
+        )}
         <span className="flex-1 text-sm font-medium leading-relaxed">{option}</span>
         {showExplanation && isCorrect && (
           <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
@@ -209,6 +223,8 @@ export const NavigationButtons = ({
   totalQuestions,
   showExplanation,
   selectedOption,
+  selectedOptions,
+  currentQuestion,
   onPrevious,
   onSubmit,
   onNext,
@@ -228,11 +244,23 @@ export const NavigationButtons = ({
       {!showExplanation ? (
         <button
           onClick={onSubmit}
-          disabled={selectedOption === null}
-          className={`px-6 py-2 rounded-lg text-white font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm ${
-            quizType === 'theory' 
-              ? 'bg-blue-600 hover:bg-blue-700' 
-              : 'bg-purple-600 hover:bg-purple-700'
+          disabled={
+            Array.isArray(currentQuestion?.correct) 
+              ? selectedOptions?.length === 0
+              : selectedOption === null
+          }
+          className={`px-6 py-2 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm ${
+            Array.isArray(currentQuestion?.correct)
+              ? selectedOptions?.length > 0
+                ? quizType === 'theory' 
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                  : 'bg-purple-600 hover:bg-purple-700 text-white'
+                : 'bg-gray-300 text-gray-500'
+              : selectedOption !== null
+                ? quizType === 'theory' 
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                  : 'bg-purple-600 hover:bg-purple-700 text-white'
+                : 'bg-gray-300 text-gray-500'
           }`}
         >
           Submit Answer

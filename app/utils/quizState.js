@@ -46,7 +46,8 @@ export const useQuizState = (initialQuizType = 'theory') => {
   });
 
   // UI state for current question
-  const [selectedOption, setSelectedOption] = useState(null);  // Currently selected option
+  const [selectedOption, setSelectedOption] = useState(null);  // Currently selected option (single selection)
+  const [selectedOptions, setSelectedOptions] = useState([]); // Array for multiple selections
   const [showExplanation, setShowExplanation] = useState(false); // Show explanation after answer
   const [quizType, setQuizType] = useState(initialQuizType);    // Current quiz type
   const [selectedSubject, setSelectedSubject] = useState(null); // Currently selected subject
@@ -66,17 +67,54 @@ export const useQuizState = (initialQuizType = 'theory') => {
 
   const handleOptionSelect = (optionIndex) => {
     if (showExplanation) return;
-    setSelectedOption(optionIndex);
+    
+    const currentQuestion = getCurrentQuestions()[currentState.currentIndex];
+    const isMultiSelect = Array.isArray(currentQuestion.correct);
+    
+    if (isMultiSelect) {
+      // Toggle selection for multi-select questions
+      setSelectedOptions(prev => {
+        if (prev.includes(optionIndex)) {
+          return prev.filter(index => index !== optionIndex);
+        } else {
+          return [...prev, optionIndex];
+        }
+      });
+    } else {
+      // Single selection for regular questions
+      setSelectedOption(optionIndex);
+    }
   };
 
   const handleSubmitAnswer = (currentQuestion) => {
-    if (selectedOption === null) return;
+    const isMultiSelect = Array.isArray(currentQuestion.correct);
+    
+    // Validate that at least one option is selected
+    if ((isMultiSelect && selectedOptions.length === 0) || (!isMultiSelect && selectedOption === null)) {
+      return;
+    }
 
-    const isCorrect = selectedOption === currentQuestion.correct;
+    let isCorrect;
+    let selectedAnswer;
+    
+    if (isMultiSelect) {
+      // Check if all selected options are correct and no incorrect options are selected
+      const correctAnswers = new Set(currentQuestion.correct);
+      const selectedAnswers = new Set(selectedOptions);
+      
+      // Must select all correct answers and no incorrect ones
+      isCorrect = currentQuestion.correct.length === selectedOptions.length && 
+                  selectedOptions.every(index => correctAnswers.has(index));
+      selectedAnswer = selectedOptions;
+    } else {
+      isCorrect = selectedOption === currentQuestion.correct;
+      selectedAnswer = selectedOption;
+    }
+    
     const newAnswers = {
       ...currentState.answers,
       [currentQuestion.id]: {
-        selected: selectedOption,
+        selected: selectedAnswer,
         correct: currentQuestion.correct,
         isCorrect
       }
@@ -98,6 +136,7 @@ export const useQuizState = (initialQuizType = 'theory') => {
         currentIndex: prev.currentIndex + 1
       }));
       setSelectedOption(null);
+      setSelectedOptions([]);
       setShowExplanation(false);
     } else {
       setState(prev => ({ ...prev, completed: true }));
@@ -111,6 +150,7 @@ export const useQuizState = (initialQuizType = 'theory') => {
         currentIndex: prev.currentIndex - 1
       }));
       setSelectedOption(null);
+      setSelectedOptions([]);
       setShowExplanation(false);
     }
   };
@@ -133,6 +173,7 @@ export const useQuizState = (initialQuizType = 'theory') => {
       setCodingState(resetState);
     }
     setSelectedOption(null);
+    setSelectedOptions([]);
     setShowExplanation(false);
   };
 
@@ -170,6 +211,7 @@ export const useQuizState = (initialQuizType = 'theory') => {
   return {
     currentQuestionIndex: currentState.currentIndex,
     selectedOption,
+    selectedOptions,
     showExplanation,
     score: currentState.score,
     userAnswers: currentState.answers,
