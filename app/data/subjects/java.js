@@ -553,7 +553,7 @@ System.out.println("x = " + x +" y = " + y);
 
   coding: [
     {
-      id: 27,
+      id: 37,
       question: "What is the output of this Java code?",
       code: `String str1 = "Hello";
 String str2 = "Hello";
@@ -565,7 +565,7 @@ System.out.println(str1 == str2);`,
       topic: "String Handling"
     },
     {
-      id: 28,
+      id: 38,
       question: "What will this code print?",
       code: `int[] arr = {1, 2, 3, 4, 5};
 System.out.println(arr.length);`,
