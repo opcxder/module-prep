@@ -211,9 +211,11 @@ export const QuizInterface = ({
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span className="text-gray-400 text-xs ml-2 font-mono">Code</span>
                 </div>
-                <pre className="text-green-400 text-xs font-mono overflow-x-auto leading-relaxed">
-                  <code>{currentQuestion.code}</code>
-                </pre>
+                <div className="overflow-x-auto">
+                  <pre className="text-green-400 text-xs font-mono leading-relaxed min-w-max">
+                    <code>{currentQuestion.code}</code>
+                  </pre>
+                </div>
               </div>
             )}
           </div>
@@ -228,7 +230,10 @@ export const QuizInterface = ({
                   index={index}
                   selected={selectedOption === index}
                   showExplanation={showExplanation}
-                  isCorrect={index === currentQuestion.correct}
+                  isCorrect={Array.isArray(currentQuestion.correct) 
+                    ? currentQuestion.correct.includes(index)
+                    : index === currentQuestion.correct
+                  }
                   onClick={() => onOptionSelect(index)}
                   quizType={quizType}
                 />
@@ -237,8 +242,14 @@ export const QuizInterface = ({
 
             {showExplanation && (
               <QuizExplanation
-                isCorrect={selectedOption === currentQuestion.correct}
-                correctAnswer={currentQuestion.options[currentQuestion.correct]}
+                isCorrect={Array.isArray(currentQuestion.correct) 
+                  ? currentQuestion.correct.includes(selectedOption)
+                  : selectedOption === currentQuestion.correct
+                }
+                correctAnswer={Array.isArray(currentQuestion.correct) 
+                  ? currentQuestion.correct.map(index => currentQuestion.options[index])
+                  : currentQuestion.options[currentQuestion.correct]
+                }
                 explanation={currentQuestion.explanation}
               />
             )}

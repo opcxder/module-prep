@@ -197,7 +197,7 @@ You cannot use pre-increment (++) in a declaration. Compilation error occurs.`,
       question: "Find the output of the following code:",
       code: `Public class Solution{
     Public static void main(String args[]){
-        Int i;
+        int i;
         for(i = 1; i < 6; i++){
             if(i > 3) continue;
         }

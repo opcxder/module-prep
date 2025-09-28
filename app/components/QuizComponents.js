@@ -147,46 +147,62 @@ export const QuizOption = ({ option, index, selected, showExplanation, isCorrect
   );
 };
 
-export const QuizExplanation = ({ isCorrect, correctAnswer, explanation }) => (
-  <div className={`p-4 rounded-lg mb-4 shadow-sm ${
-    isCorrect 
-      ? 'bg-green-50 border border-green-200' 
-      : 'bg-red-50 border border-red-200'
-  }`}>
-    <div className="flex items-start gap-3">
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
-        isCorrect ? 'bg-green-500' : 'bg-red-500'
-      }`}>
-        {isCorrect ? (
-          <CheckCircle className="w-4 h-4 text-white" />
-        ) : (
-          <XCircle className="w-4 h-4 text-white" />
-        )}
-      </div>
-      <div className="flex-1">
-        <h4 className={`text-lg font-bold mb-2 ${
-          isCorrect ? 'text-green-800' : 'text-red-800'
+export const QuizExplanation = ({ isCorrect, correctAnswer, explanation }) => {
+  // Handle multiple correct answers (array) or single correct answer
+  const formatCorrectAnswer = (answer) => {
+    if (Array.isArray(answer)) {
+      return answer.map((ans, index) => (
+        <div key={index} className="mb-1">
+          <span className="text-red-700 font-semibold text-sm">
+            {String.fromCharCode(65 + ans)}: {ans}
+          </span>
+        </div>
+      ));
+    }
+    return <span className="text-red-700 font-semibold text-sm">{answer}</span>;
+  };
+
+  return (
+    <div className={`p-4 rounded-lg mb-4 shadow-sm ${
+      isCorrect 
+        ? 'bg-green-50 border border-green-200' 
+        : 'bg-red-50 border border-red-200'
+    }`}>
+      <div className="flex items-start gap-3">
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
+          isCorrect ? 'bg-green-500' : 'bg-red-500'
         }`}>
-          {isCorrect ? '🎉 Correct!' : '❌ Incorrect'}
-        </h4>
-        {!isCorrect && (
-          <div className="bg-white rounded-lg p-3 mb-3 border border-red-200">
-            <p className="text-red-800 font-medium mb-1 text-sm">Correct Answer:</p>
-            <p className="text-red-700 font-semibold text-sm">{correctAnswer}</p>
-          </div>
-        )}
-        <div className="bg-white rounded-lg p-3 border border-gray-200">
-          <p className="text-gray-700 font-medium mb-1 text-sm">Explanation:</p>
-          <p className={`text-sm leading-relaxed ${
-            isCorrect ? 'text-green-700' : 'text-red-700'
+          {isCorrect ? (
+            <CheckCircle className="w-4 h-4 text-white" />
+          ) : (
+            <XCircle className="w-4 h-4 text-white" />
+          )}
+        </div>
+        <div className="flex-1">
+          <h4 className={`text-lg font-bold mb-2 ${
+            isCorrect ? 'text-green-800' : 'text-red-800'
           }`}>
-            {explanation}
-          </p>
+            {isCorrect ? '🎉 Correct!' : '❌ Incorrect'}
+          </h4>
+          {!isCorrect && (
+            <div className="bg-white rounded-lg p-3 mb-3 border border-red-200">
+              <p className="text-red-800 font-medium mb-1 text-sm">Correct Answer:</p>
+              {formatCorrectAnswer(correctAnswer)}
+            </div>
+          )}
+          <div className="bg-white rounded-lg p-3 border border-gray-200">
+            <p className="text-gray-700 font-medium mb-1 text-sm">Explanation:</p>
+            <p className={`text-sm leading-relaxed ${
+              isCorrect ? 'text-green-700' : 'text-red-700'
+            }`}>
+              {explanation}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const NavigationButtons = ({
   currentIndex,
