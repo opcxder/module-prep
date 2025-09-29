@@ -205,9 +205,8 @@ You cannot use pre-increment (++) in a declaration. Compilation error occurs.`,
     }
 }`,
       options: ["4", "5", "6", "Compilation error"],
-      correct: 2,
-      explanation: `The loop runs from i=1 to i=5. When i>3, continue skips rest of body but continues next iteration. 
-Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'Int'.`,
+      correct: 3,
+      explanation: `The code has compilation errors due to 'Public' and 'Int' (should be 'public' and 'int'). If it compiled, the loop would run from i=1 to i=5, and i would be 6 after loop termination.`,
       difficulty: "Intermediate",
       topic: "Loops & Control Statements"
     },
@@ -364,7 +363,7 @@ Loop terminates at i=6. Also, code has compilation errors due to 'Public' and 'I
 }`,
       options: ["4 -1", "4 0", "3 -1", "3 0"],
       correct: 0,
-      explanation: "Loop runs 6 times, y decrements post-condition. Final: x = 7, y = 0.",
+      explanation: "Loop runs 3 times: y=3→2→1→0. When y=0, condition fails and y becomes -1. Final: x = 4, y = -1.",
       difficulty: "Intermediate",
       topic: "Loops & Post-decrement Operator"
     },
@@ -466,8 +465,8 @@ class ColorPencil extends Pencil {
         "The while loop will execute indefinitely, printing all odd numbers, starting from 1.",
         "The while loop will execute indefinitely, printing all odd numbers, starting from 3."
       ],
-      correct: 5,
-      explanation: "Initially a=0. Loop condition: a == a++ compares current value of a (0) with post-increment result. Post-increment returns old value (0) then increments a to 1. So 0==0 is true. Inside loop: a++ makes a=2, prints 2. Next iteration: a=2, condition checks 2==(a++ returns 2, a becomes 3), so 2==2 is true. Inside: a++ makes a=4, prints 4. Pattern continues: prints all even numbers starting from 2... Wait, let me recalculate: Loop prints odd numbers 3,5,7... starting from 3.",
+      correct: 3,
+      explanation: "Initially a=0. Loop condition: a == a++ compares current value of a (0) with post-increment result. Post-increment returns old value (0) then increments a to 1. So 0==0 is true. Inside loop: a++ makes a=2, prints 2. Next iteration: a=2, condition checks 2==(a++ returns 2, a becomes 3), so 2==2 is true. Inside: a++ makes a=4, prints 4. Pattern continues: prints all even numbers starting from 2.",
       difficulty: "Advanced",
       topic: "Post-increment & Loop Conditions"
     },
